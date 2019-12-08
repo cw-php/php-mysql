@@ -395,3 +395,4 @@ function text_title($table, $column, $place, $sayi, $id2)
     </body>
     </html>
 
+
