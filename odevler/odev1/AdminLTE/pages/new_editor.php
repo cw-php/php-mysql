@@ -1,59 +1,50 @@
 <?php
 session_start();
 
-if(!isset($_SESSION['oturum'])){
+if (!isset($_SESSION['oturum'])) {
   
 
  header("Location:../login.php");
 
-}else{
+} else {
 
- $admin_username=$_SESSION['username'];
+ $admin_username = $_SESSION['username'];
 
 }
 
-function dbconnect(){
+function dbconnect() {
 
-    $sql=mysqli_connect("localhost","root","","admin_panel");
-  
-    if($sql){
-  
-        return $sql;
-    }else{
-  
-        return false;
-    }
-  
+  $sql = mysqli_connect("localhost", "root", "", "admin_panel");
+
+  if ($sql) {
+
+      return $sql;
+
+  } else {
+
+      return false;
   }
 
-  
-$conn=dbconnect();
+} 
 
-if(isset($_POST['title'])){
 
-    $title=$_POST['title'];
-    $editor=$_POST['editor1'];
-    $select_val=$_POST['text_place'];
-    $sql="INSERT into `texts`  (`text_title`,`text_about`,`gosterim_yeri`) VALUES ('$title','$editor','$select_val')";
-    $result=mysqli_query($conn,$sql);
-    if($result){
+if (isset($_POST['title'])) {
+
+    $title = $_POST['title'];
+    $editor = $_POST['editor1'];
+    $select_val = $_POST['text_place'];
+    $sql = "INSERT into `texts`  (`text_title`, `text_about`, `gosterim_yeri`) VALUES ('$title', '$editor', '$select_val')";
+    $result = mysqli_query($conn, $sql);
+    if ($result) {
 
         echo "<script>alert('Yeni metin eklendi')</script>";
-    }else{
+    } else {
 
       echo "<script>alert('Hata oldu!')</script>";
     }
 
 }
  
-
-
-
-
-
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -165,25 +156,15 @@ if(isset($_POST['title'])){
                 </div>
                 <div class="pull-right">
                   <a href="?logout=exit" class="btn btn-default btn-flat">Sign out</a>
-                  <?php
-                  
-                  
-                  if(isset($_GET['logout'])){
-
-                    $exit=$_GET['logout'];
-                    if($exit=='exit'){
-
-                        session_destroy();
-                        header("Location:../login.php");
-
-                    }
-
-
-
-                  }
-                  
-                  
-                  ?>
+<?php
+if (isset($_GET['logout'])) {
+    $exit = $_GET['logout'];
+    if ($exit == 'exit') {
+        session_destroy();
+        header("Location:../../login.php");
+    }
+  }
+?>
                 </div>
               </li>
             </ul>
@@ -539,16 +520,7 @@ if(isset($_POST['title'])){
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script>
 
-$(document).ready(function(){
 
-
-
-
-
-
-
-
-})
 
 
 
@@ -569,4 +541,6 @@ $(document).ready(function(){
 </script>
 </body>
 </html>
+
+
 

@@ -1,25 +1,26 @@
 <?php
 session_start();
 
-if(!isset($_SESSION['oturum'])){
+if (!isset($_SESSION['oturum'])) {
   
 
  header("Location:../login.php");
 
-}else{
+} else {
 
- $admin_username=$_SESSION['username'];
+ $admin_username = $_SESSION['username'];
 
 }
 
-function dbconnect(){
+function dbconnect() {
 
-  $sql=mysqli_connect("localhost","root","","admin_panel");
+  $sql = mysqli_connect("localhost", "root", "", "admin_panel");
 
-  if($sql){
+  if ($sql) {
 
       return $sql;
-  }else{
+
+  } else {
 
       return false;
   }
@@ -320,25 +321,15 @@ function dbconnect(){
                 </div>
                 <div class="pull-right">
                   <a href="?logout=exit" class="btn btn-default btn-flat">Sign out</a>
-                  <?php
-                  
-                  
-                  if(isset($_GET['logout'])){
-
-                    $exit=$_GET['logout'];
-                    if($exit=='exit'){
-
-                        session_destroy();
-                        header("Location:../../login.php");
-
-                    }
-
-
-
-                  }
-                  
-                  
-                  ?>
+<?php
+if (isset($_GET['logout'])) {
+    $exit = $_GET['logout'];
+    if ($exit == 'exit') {
+        session_destroy();
+        header("Location:../../login.php");
+    }
+  }
+?>
                 </div>
               </li>
             </ul>

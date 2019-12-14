@@ -1,49 +1,31 @@
 <?php
 session_start();
 
-if(!isset($_SESSION['oturum'])){
+if (!isset($_SESSION['oturum'])) {
   
 
  header("Location:../login.php");
 
-}else{
+} else {
 
- $admin_username=$_SESSION['username'];
-
+ $admin_username = $_SESSION['username'];
 
 }
 
-?>
+function dbconnect() {
 
+  $sql = mysqli_connect("localhost", "root", "", "admin_panel");
 
-<?php
-
-function dbconnect(){
-
-  $sql=mysqli_connect("localhost","root","","admin_panel");
-
-  if($sql){
+  if ($sql) {
 
       return $sql;
-  }else{
+
+  } else {
 
       return false;
   }
 
-}
-
-
-
-
-
-
-
-     
-
-
-
-
- 
+} 
 ?>
 
 
@@ -128,7 +110,7 @@ color:white;
                 <img src="../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                <?php echo $admin_username;?>
+                <?php echo $admin_username; ?>
                  
                 </p>
               </li>
@@ -154,25 +136,15 @@ color:white;
                 </div>
                 <div class="pull-right">
                   <a href="?logout=exit" class="btn btn-default btn-flat">Sign out</a>
-                  <?php
-                  
-                  
-                  if(isset($_GET['logout'])){
-
-                    $exit=$_GET['logout'];
-                    if($exit=='exit'){
-
-                        session_destroy();
-                        header("Location:../../login.php");
-
-                    }
-
-
-
-                  }
-                  
-                  
-                  ?>
+<?php
+if (isset($_GET['logout'])) {
+    $exit = $_GET['logout'];
+    if ($exit == 'exit') {
+        session_destroy();
+        header("Location:../../login.php");
+    }
+  }
+?>
                 </div>
               </li>
             </ul>
@@ -263,7 +235,7 @@ color:white;
   
 
 <div class="container" id='table' style='margin-top:0px;'>
-<a class='add-a' href='new_editors.php'><button class='add-new-btn'><p class='add-new-p'>Add New</p></button></a>
+<a class='add-a' href='new_editor.php'><button class='add-new-btn'><p class='add-new-p'>Add New</p></button></a>
   <table class='table table-bordered table-hover'>
   
       <thead>
@@ -281,15 +253,15 @@ color:white;
 <?php
 
 
-$conn=dbconnect();
+$conn = dbconnect();
 $query_select = "SELECT * FROM `texts` order by `id`";
-$result=mysqli_query($conn,$query_select);
-$row=mysqli_fetch_all($result,MYSQLI_ASSOC);
-$rowcount=mysqli_num_rows($result);
+$result = mysqli_query($conn, $query_select);
+$row = mysqli_fetch_all($result, MYSQLI_ASSOC);
+$rowcount = mysqli_num_rows($result);
 
-for($i=0;$i<$rowcount;$i++){
-$veriler=$row[$i]['text_title'];
-$db_id=$row[$i]['id'];
+for ($i = 0; $i < $rowcount; $i++) {
+$veriler = $row[$i]['text_title'];
+$db_id = $row[$i]['id'];
   echo "<tbody>
   <tr>
       
@@ -600,19 +572,8 @@ $("#x").html(veri);
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 </script>
 </body>
 </html>
+
+
