@@ -447,46 +447,46 @@ if (isset($_GET['logout'])) {
             <?php
             
             
-            if(isset($_POST['submit'])){
+            if (isset($_POST['submit'])) {
 
                 
 
 
                     $conn=dbconnect();
                     $resim_place=$_POST['image_place'];
-                    $img_extends=['.PNG','.jpg','.jpeg','.gif','.png'];
+                    $img_extends=['.PNG', '.jpg', '.jpeg', '.gif', '.png'];
                     $max_boyut=500000;
                     $resim_boyutu=$_FILES['dosya']['size'];
                     $resim_adi=$_FILES['dosya']['name'];
-                    $uzanti=explode(".",$resim_adi);
+                    $uzanti=explode(".", $resim_adi);
                     $uzanti=".".end($uzanti);
-                    $names=rand(0,99999999).$uzanti;
+                    $names=rand(0, 99999999).$uzanti;
                     
                     $dosya_yolu='../../resimler/'.$names;
 
-                    if($resim_boyutu>$max_boyut){
+                    if ($resim_boyutu > $max_boyut) {
                     
                         echo "Resim boyutu buyuk";
-                    }else{
+                    } else {
                     
                     
-                    if(in_array($uzanti,$img_extends)){
+                    if (in_array($uzanti, $img_extends)) {
                     
                         
-                        if(is_uploaded_file($_FILES['dosya']['tmp_name'])){
+                        if (is_uploaded_file($_FILES['dosya']['tmp_name'])){
                     
-                            $move=move_uploaded_file($_FILES['dosya']['tmp_name'],$dosya_yolu);
+                            $move=move_uploaded_file($_FILES['dosya']['tmp_name'], $dosya_yolu);
                     
-                            if ($move){
-                                $sql="INSERT into `images` (`images_name`,`gosterim_yeri`) VALUES ('resimler/$names','$resim_place')";
+                            if ($move) {
+                                $sql = "INSERT into `images` (`images_name`, `gosterim_yeri`) VALUES ('resimler/$names','$resim_place')";
                                 
                                 
-                                $sorgu=mysqli_query($conn,$sql);  
+                                $sorgu = mysqli_query($conn, $sql);  
                                 // var_dump($sql); die;
-                                if($sorgu){
+                                if ($sorgu) { 
                                     echo "<script>alert('Yes!')</script>" ;
 
-                                }else{
+                                } else {
 
                                     echo "<script>alert('Hata!')</script>" ;
                                     
@@ -496,12 +496,12 @@ if (isset($_GET['logout'])) {
                 
                                              
                             }
-                        }else{
+                        } else {
                     
                             echo "hata oldu !";
                         }
                         
-                    }else{
+                    } else {
                         echo "<script>alert('Hata yalniz Resim yukleyin!')</script>";
                 }
                 }    
@@ -748,5 +748,7 @@ if (isset($_GET['logout'])) {
        
 
     </body>
-
     </html>
+
+
+    

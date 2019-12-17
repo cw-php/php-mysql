@@ -102,17 +102,17 @@ function text_title($table, $column, $place, $sayi, $id2) {
 
 $count  =2;
 $dizi = array();
-for($i = 0; $i < $count; $i++) {
+for ($i = 0; $i < $count; $i++) {
         $id = $i;
         $verilerr = resim('images', 'images_name', 'Top', 2, $id);                
         $dizi[$i] = $veriler
         $dizi2=array();
-for($i = 0; $i < $count; $i++) {
+for ($i = 0; $i < $count; $i++) {
         $id = $i;
         $verilerr = resim('texts', 'text_title', 'Top1', 2, $id);                
         $dizi2[$i] = $veriler
 
-for($i = 0;$i < 2;$i++) {
+for ($i = 0;$i < 2;$i++) {
 
         echo "<div class='col-xl-6 col-lg-6 col-md-6 col-sm-12' id='div1'>
         <img src='AdminLTE/pages/$dizi[$i]' id='mountain-img-one' class='img-fluid'>
@@ -170,7 +170,7 @@ $img_dizi = array();
 $text_title_dizi = array();
 $text_about_dizi = array();
 
-for($i = 0; $i < $img_count; $i++) {
+for ($i = 0; $i < $img_count; $i++) {
 $id = $i;
 $id2 = $i;        
 $veriler_resim = resim('images', 'images_name', 'Middle', 3, $id);
@@ -181,7 +181,7 @@ $text_about_dizi[$i] = $veriler_text_about;
 $img_dizi[$i] = $veriler_resim;        
 }
 
-for($i = 0; $i < 3; $i++) {       
+for ($i = 0; $i < 3; $i++) {       
     echo "<div class='col-xl-3 col-lg-3 col-md-4 col-sm-12' >
         <img style='margin-top:10px;' src='AdminLTE/pages/$img_dizi[$i]' class='img-fluid'>
         </div>
@@ -236,7 +236,7 @@ $img_dizi = array();
 $text_title_dizi =  array();
 $text_about_dizi = array();
 
-for($i = 0; $i < $img_count; $i++) {
+for ($i = 0; $i < $img_count; $i++) {
 $id=$i;
 $id2=$i;        
 $veriler_resim = resim('images', 'images_name', 'Bottom', 3, $id);
@@ -247,7 +247,7 @@ $text_about_dizi[$i] = $veriler_text_about;
 $img_dizi[$i] = $veriler_resim;     
 }
 
-for($i = 0; $i < 3; $i++) {               
+for ($i = 0; $i < 3; $i++) {               
 echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-12' id='end-job-about-div1'>
 <img src='AdminLTE/pages/$img_dizi[$i]' class='img-fluid' id='end-job-img'>
 <p class='lorem-title'>$text_title_dizi[$i]</p>
@@ -324,7 +324,7 @@ $result7 = mysqli_query($conn,$sql7);
 $row7 = mysqli_fetch_all($result7,MYSQLI_ASSOC);
 $rowcount7 = mysqli_num_rows($result7);
 
-for($i = 0; $i < $rowcount7; $i++) {
+for ($i = 0; $i < $rowcount7; $i++) {
 $icon_code = "fa ".$row7[$i]['icon_code'];
 $icon_link = $row7[$i]['icon_link'];
 echo "<a class='aLink' target='_blank' href='$icon_link'><i style='color:blue; font-size:40px; margin-left:4px; margin-top:20px;' id='icons' class='$icon_code'></i></a>";

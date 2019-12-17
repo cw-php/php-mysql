@@ -1,48 +1,48 @@
 <?php
 session_start();
 
-if(!isset($_SESSION['oturum'])){
+if (!isset($_SESSION['oturum'])) { 
   
 
  header("Location:../login.php");
 
-}else{
+} else {
 
- $admin_username=$_SESSION['username'];
-
+ $admin_username = $_SESSION['username'];
 
 }
 
 
-function dbconnect(){
+function dbconnect() {
 
-  $sql=mysqli_connect("localhost","root","","admin_panel");
+  $sql = mysqli_connect("localhost", "root", "", "admin_panel");
 
-  if($sql){
+  if ($sql) {
 
       return $sql;
-  }else{
+
+  } else {
 
       return false;
   }
 
 }
 
-$conn=dbconnect();
+$conn = dbconnect();
 
-$sql="SELECT * FROM `users`";
-$result=mysqli_query($conn,$sql);
+$sql = "SELECT * FROM `users`";
+$result = mysqli_query($conn, $sql);
 
-while($cek=mysqli_fetch_array($result)){
+while ($cek = mysqli_fetch_array($result)) {
 
-$dizi=["id"=>$cek["id"],"K_adi" => $cek["K_adi"],];
+$dizi = ["id"=>$cek["id"],"K_adi" => $cek["K_adi"],];
 }
 
-function resim_cek($id){
-  $conn=dbconnect();
-  $sql="SELECT `images_name` from `images` where `id`='$id'";
-  $result=mysqli_query($conn,$sql);
-  while($cek=mysqli_fetch_array($result)){
+function resim_cek($id) {
+  $conn = dbconnect();
+  $sql = "SELECT `images_name` from `images` where `id` = '$id'";
+  $result = mysqli_query($conn, $sql);
+  while ($cek = mysqli_fetch_array($result)) {
 
       echo $cek['images_name'];
   }      
@@ -51,15 +51,15 @@ function resim_cek($id){
   $query_select = "SELECT * FROM `images`";
 $result_select = mysqli_query($conn,$query_select) or die(mysql_error());
 $rows = array();
-while($row = mysqli_fetch_array($result_select))
+while ($row = mysqli_fetch_array($result_select))
 
     $rows[] = $row['images_name'];  
 
-function resim_id_cek($ad){
-  $conn=dbconnect();
-  $sql="SELECT `id` from `images` where `images_name`='$ad'";
-  $result=mysqli_query($conn,$sql);
-  while($cek=mysqli_fetch_array($result)){
+function resim_id_cek($ad) {
+  $conn = dbconnect();
+  $sql = "SELECT `id` from `images` where `images_name` = '$ad'";
+  $result = mysqli_query($conn, $sql);
+  while ($cek = mysqli_fetch_array($result)) {
 
       echo $cek['id'];
   }      
@@ -67,39 +67,39 @@ function resim_id_cek($ad){
 echo resim_id_cek("resimler/61793927.png");    
 
 //resim ekleme fonksiyonu 
-  function resim_ekle($id){
-    $conn=dbconnect();
-    $img_extends=['.png','.jpg','.jpeg','.gif'];
-    $max_boyut=500000;
-    $resim_boyutu=$_FILES['dosya']['size'];
-    $resim_adi=$_FILES['dosya']['name'];
-    $uzanti=explode(".",$resim_adi);
-    $uzanti=".".end($uzanti);
-    $names=rand(0,99999999).$uzanti;
-    $dosya_yolu='resimler/'.$names;
-    if($resim_boyutu>$max_boyut){
+  function resim_ekle($id) {
+    $conn = dbconnect();
+    $img_extends = ['.png','.jpg','.jpeg','.gif'];
+    $max_boyut = 500000;
+    $resim_boyutu = $_FILES['dosya']['size'];
+    $resim_adi = $_FILES['dosya']['name'];
+    $uzanti = explode(".", $resim_adi);
+    $uzanti = ".".end($uzanti);
+    $names = rand(0,99999999).$uzanti;
+    $dosya_yolu = 'resimler/'.$names;
+    if ($resim_boyutu > $max_boyut) {
 
         echo "Resim boyutu buyuk";
-    }else{
+    } else {
 
-    if(in_array($uzanti,$img_extends)){
+    if (in_array($uzanti, $img_extends)) {
 
-        if(is_uploaded_file($_FILES['dosya']['tmp_name'])){
+        if (is_uploaded_file($_FILES['dosya']['tmp_name'])) {
 
-            $move=move_uploaded_file($_FILES['dosya']['tmp_name'],$dosya_yolu);
+            $move = move_uploaded_file($_FILES['dosya']['tmp_name'], $dosya_yolu);
 
-            if ($move){
+            if ($move) {
                 echo "<script>alert('dosya yuklendi')</script>" ;
 
-                $sql="UPDATE images SET images_name='resimler/$names' Where id=$id";
-                $sorgu=mysqli_query($conn,$sql);               
+                $sql = "UPDATE images SET images_name = 'resimler/$names' Where id = $id";
+                $sorgu = mysqli_query($conn, $sql);               
             }   
-        }else{
+        } else {
 
             echo "hata oldu !";
         }
 
-    }else{
+    } else {
         echo "<script>alert('Hata yalniz Resim yukleyin!')</script>";
 }
 }    
@@ -393,25 +393,15 @@ echo resim_id_cek("resimler/61793927.png");
                 </div>
                 <div class="pull-right">
                   <a href="?logout=exit" class="btn btn-default btn-flat">Sign out</a>
-                  <?php
-                  
-                  
-                  if(isset($_GET['logout'])){
-
-                    $exit=$_GET['logout'];
-                    if($exit=='exit'){
-
-                        session_destroy();
-                        header("Location:../../login.php");
-
-                    }
-
-
-
-                  }
-                  
-                  
-                  ?>
+<?php
+if (isset($_GET['logout'])) {
+    $exit = $_GET['logout'];
+    if ($exit == 'exit') {
+        session_destroy();
+        header("Location:../../login.php");
+    }
+  }
+?>
                 </div>
               </li>
             </ul>
