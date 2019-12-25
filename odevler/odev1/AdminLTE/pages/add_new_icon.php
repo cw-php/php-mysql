@@ -1,14 +1,14 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['oturum'])) {
+if(!isset($_SESSION['oturum'])){
   
 
  header("Location:../login.php");
 
-} else {
+}else{
 
- $admin_username = $_SESSION['username'];
+ $admin_username=$_SESSION['username'];
 
 }
 ?>
@@ -125,14 +125,24 @@ input{
                 <div class="pull-right">
                   <a href="?logout=exit" class="btn btn-default btn-flat">Sign out</a>
                   <?php
-if (isset($_GET['logout'])) {
-    $exit = $_GET['logout'];
-    if ($exit == 'exit') {
-        session_destroy();
-        header("Location:../../login.php");
-    }
-  }
-?>
+                  
+                  
+                  if(isset($_GET['logout'])){
+
+                    $exit=$_GET['logout'];
+                    if($exit=='exit'){
+
+                        session_destroy();
+                        header("Location:../login.php");
+
+                    }
+
+
+
+                  }
+                  
+                  
+                  ?>
                 </div>
               </li>
             </ul>
@@ -221,15 +231,14 @@ if (isset($_GET['logout'])) {
 <!-- The Modal -->
 
 <?php
-function dbconnect() {
+function dbconnect(){
 
-    $sql = mysqli_connect("localhost", "root", "", "admin_panel");
+    $sql=mysqli_connect("localhost","root","","admin_panel");
     
-    if ($sql) {
+    if($sql){
     
         return $sql;
-
-    } else {
+    }else{
     
         return false;
     }
@@ -255,21 +264,21 @@ function dbconnect() {
 
 
 
-if (isset($_POST['name'])) {
-$conn = dbconnect();
-    $new_name = $_POST['name'];
-    $new_code = $_POST['code'];
-    $new_link = $_POST['link'];
-    htmlspecialchars($new_name, ENT_QUOTES);
-    htmlspecialchars($new_code, ENT_QUOTES);
-    htmlspecialchars($new_link, ENT_QUOTES);
+if(isset($_POST['name'])){
+$conn=dbconnect();
+    $new_name=$_POST['name'];
+    $new_code=$_POST['code'];
+    $new_link=$_POST['link'];
+    htmlspecialchars($new_name,ENT_QUOTES);
+    htmlspecialchars($new_code,ENT_QUOTES);
+    htmlspecialchars($new_link,ENT_QUOTES);
 
-    $sql2 = "INSERT into `icons`  (`icon_name`,`icon_code`,`icon_link`) VALUES ('$new_name', '$new_code', '$new_link')";
-    $result2 = mysqli_query($conn,$sql2);
-    if ($result2) { 
+    $sql2="INSERT into `icons`  (`icon_name`,`icon_code`,`icon_link`) VALUES ('$new_name','$new_code','$new_link')";
+    $result2=mysqli_query($conn,$sql2);
+    if($result2){
 
         echo "<script>alert('Eklendi')</script>";
-    } else {
+    }else{
 
         echo "<script>alert('Hata oldu')</script>";
 
@@ -502,5 +511,3 @@ $conn = dbconnect();
 
 </body>
 </html>
-
-

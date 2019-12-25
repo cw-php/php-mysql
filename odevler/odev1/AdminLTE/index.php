@@ -1,14 +1,14 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['oturum'])) {
+if(!isset($_SESSION['oturum'])){
   
 
  header("Location:../login.php");
 
-} else {
+}else{
 
- $admin_username = $_SESSION['username'];
+ $admin_username=$_SESSION['username'];
 
 }
 
@@ -113,14 +113,24 @@ if (!isset($_SESSION['oturum'])) {
                 <div class="pull-right">
                   <a href="?logout=exit" class="btn btn-default btn-flat">Sign out</a>
                   <?php
-if (isset($_GET['logout'])) {
-    $exit = $_GET['logout'];
-    if ($exit == 'exit') {
-        session_destroy();
-        header("Location:../../login.php");
-    }
-  }
-?>
+                  
+                  
+                  if(isset($_GET['logout'])){
+
+                    $exit=$_GET['logout'];
+                    if($exit=='exit'){
+
+                        session_destroy();
+                        header("Location:../login.php");
+
+                    }
+
+
+
+                  }
+                  
+                  
+                  ?>
                 </div>
               </li>
             </ul>

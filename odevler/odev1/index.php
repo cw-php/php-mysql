@@ -1,17 +1,19 @@
 <?php
-function dbconnect() {
+function dbconnect()
+{
     $sql = mysqli_connect("localhost", "root", "", "admin_panel");
-    if($sql) {
+    if($sql)
+    {
 
         return $sql;
 
-    } else {
+    }else
+    {
 
         return false;
     }
 }
-
-function sayi($table, $place) {
+function sayi ($table, $place) {
         $conn = dbconnect();
         $sql = "SELECT * from `$table` Where `gosterim_yeri` = '$place'";
         $result = mysqli_query($conn, $sql);
@@ -19,17 +21,19 @@ function sayi($table, $place) {
 
         return $rowcount;    
 }
-function resim($table, $column, $place, $sayi, $id) {
+function resim($table, $column, $place, $sayi, $id)
+{
     $conn = dbconnect();    
-    $sql = "SELECT * from `$table` Where `gosterim_yeri` = '$place' order by `id` DESC limit $sayi";
+    $sql = "SELECT * from `$table` Where `gosterim_yeri`='$place' order by `id` DESC limit $sayi";
     $result = mysqli_query($conn,$sql);
     $row = mysqli_fetch_all($result,MYSQLI_ASSOC);
 
     return $row[$id][$column];    
 }    
-function text_title($table, $column, $place, $sayi, $id2) {
+function text_title($table, $column, $place, $sayi, $id2)
+{
         $conn = dbconnect();    
-        $sql = "SELECT * from `$table` Where `gosterim_yeri` = '$place' order by `id` DESC limit $sayi";
+        $sql = "SELECT * from `$table` Where `gosterim_yeri`='$place' order by `id` DESC limit $sayi";
         $result = mysqli_query($conn,$sql);
         $row = mysqli_fetch_all($result,MYSQLI_ASSOC); 
 
@@ -100,29 +104,34 @@ function text_title($table, $column, $place, $sayi, $id2) {
 
 <?php
 
-$count  =2;
-$dizi = array();
-for ($i = 0; $i < $count; $i++) {
-        $id = $i;
-        $verilerr = resim('images', 'images_name', 'Top', 2, $id);                
-        $dizi[$i] = $veriler
-        $dizi2=array();
-for ($i = 0; $i < $count; $i++) {
-        $id = $i;
-        $verilerr = resim('texts', 'text_title', 'Top1', 2, $id);                
-        $dizi2[$i] = $veriler
+            $count  =2;
+            $dizi = array();
+            for ($i = 0; $i < $count; $i++) {
+                    $id = $i;
+                    $verilerr = resim('images', 'images_name', 'Top', 2, $id);                
+                    $dizi[$i] = $verilerr;
 
-for ($i = 0;$i < 2;$i++) {
+            }
 
-        echo "<div class='col-xl-6 col-lg-6 col-md-6 col-sm-12' id='div1'>
-        <img src='AdminLTE/pages/$dizi[$i]' id='mountain-img-one' class='img-fluid'>
-        <div class='' id='img-info'>
-        <div class='col-xl-6 col-lg-6 col-md-6 col-sm-12' id='div1'>
-        <p>$dizi2[$i]</p>
-        </div>
-        </div>
-        </div>";
-}
+                $dizi2=array();
+            for ($i = 0; $i < $count; $i++) {
+                    $id = $i;
+                    $verilerr = resim('texts', 'text_title', 'Top1', 2, $id);                
+                    $dizi2[$i] = $verilerr;
+
+            }
+
+            for ($i = 0;$i < 2;$i++) {
+
+                echo "<div class='col-xl-6 col-lg-6 col-md-6 col-sm-12' id='div1'>
+                <img src='AdminLTE/pages/$dizi[$i]' id='mountain-img-one' class='img-fluid'>
+                <div class='' id='img-info'>
+                <div class='col-xl-6 col-lg-6 col-md-6 col-sm-12' id='div1'>
+                <p>$dizi2[$i]</p>
+                </div>
+                </div>
+                </div>";
+            }
 ?>
 
             </div>
@@ -135,16 +144,16 @@ for ($i = 0;$i < 2;$i++) {
 
 <?php
 
-$txt_dizi_title = array();
-$txt_dizi_about = array();
+                $txt_dizi_title = array();
+                $txt_dizi_about = array();
 
-for ($i = 0; $i < 1; $i++) {                 
-$id2 = $i;
-$txt_dizi1 = text_title('texts', 'text_title', 'Top1', 1, $id2);
-$txt_dizi2 = text_title('texts', 'text_about', 'Top1', 1, $id2);
-$txt_dizi_title[$i] = $txt_dizi1;
-$txt_dizi_about[$i] = $txt_dizi2;
-}
+            for ($i = 0; $i < 1; $i++) {                 
+                    $id2 = $i;
+                    $txt_dizi1 = text_title('texts', 'text_title', 'Top1', 1, $id2);
+                    $txt_dizi2 = text_title('texts', 'text_about', 'Top1', 1, $id2);
+                    $txt_dizi_title[$i] = $txt_dizi1;
+                    $txt_dizi_about[$i] = $txt_dizi2;
+            }
 
 ?>
 
@@ -165,32 +174,34 @@ $txt_dizi_about[$i] = $txt_dizi2;
 
 <?php
 
-$img_count = 3;    
-$img_dizi = array();
-$text_title_dizi = array();
-$text_about_dizi = array();
+                $img_count = 3;    
+                $img_dizi = array();
+                $text_title_dizi = array();
+                $text_about_dizi = array();
 
-for ($i = 0; $i < $img_count; $i++) {
-$id = $i;
-$id2 = $i;        
-$veriler_resim = resim('images', 'images_name', 'Middle', 3, $id);
-$veriler_text_title = text_title('texts', 'text_title', 'Middle1', 3, $id2);
-$veriler_text_about = text_title('texts', 'text_about', 'Middle1', 3, $id2);
-$text_title_dizi[$i] = $veriler_text_title;
-$text_about_dizi[$i] = $veriler_text_about;        
-$img_dizi[$i] = $veriler_resim;        
-}
+                for ($i = 0; $i < $img_count; $i++) {
+                    $id = $i;
+                    $id2 = $i;        
+                    $veriler_resim = resim('images', 'images_name', 'Middle', 3, $id);
+                    $veriler_text_title = text_title('texts', 'text_title', 'Middle1', 3, $id2);
+                    $veriler_text_about = text_title('texts', 'text_about', 'Middle1', 3, $id2);
+                    $text_title_dizi[$i] = $veriler_text_title;
+                    $text_about_dizi[$i] = $veriler_text_about;        
+                    $img_dizi[$i] = $veriler_resim;        
+                }
 
-for ($i = 0; $i < 3; $i++) {       
-    echo "<div class='col-xl-3 col-lg-3 col-md-4 col-sm-12' >
-        <img style='margin-top:10px;' src='AdminLTE/pages/$img_dizi[$i]' class='img-fluid'>
-        </div>
-    <div  class='col-xl-9 col-lg-9 col-md-8 col-sm-12'> 
-    <p>$text_title_dizi[$i]</p>
-        <p>$text_about_dizi[$i]</p>
-        <input class='Read_More' name='input_name' type='submit' value='Read More'>
-    </div> ";
-}
+                for ($i = 0; $i < 3; $i++) {       
+        echo "<div class='col-xl-3 col-lg-3 col-md-4 col-sm-12' >
+            <img style='margin-top:10px;' src='AdminLTE/pages/$img_dizi[$i]' class='img-fluid'>
+            </div>
+
+        <div  class='col-xl-9 col-lg-9 col-md-8 col-sm-12'> 
+        <p>$text_title_dizi[$i]</p>
+            <p>$text_about_dizi[$i]</p>
+
+            <input class='Read_More' name='input_name' type='submit' value='Read More'>
+        </div> ";
+                }
 
 ?>
 
@@ -201,16 +212,17 @@ for ($i = 0; $i < 3; $i++) {
             <div class="row">
                 <div class="col-12">
 <?php
- $txt_dizi_title = array();
- $txt_dizi_about = array();
+                $txt_dizi_title = array();
+                $txt_dizi_about = array();
 
-for ($i = 0; $i < 1 ; $i++) { 
-$id2 = $i;
-$txt_dizi1 = text_title('texts', 'text_title', 'Middle2', 1, $id2);
-$txt_dizi2 = text_title('texts', 'text_about', 'Middle2', 1, $id2);
-$txt_dizi_title[$i] = $txt_dizi1;
-$txt_dizi_about[$i] = $txt_dizi2;
-}
+            for ($i = 0; $i < 1 ; $i++) { 
+                    $id2 = $i;
+                    $txt_dizi1 = text_title('texts', 'text_title', 'Middle2', 1, $id2);
+                    $txt_dizi2 = text_title('texts', 'text_about', 'Middle2', 1, $id2);
+                    $txt_dizi_title[$i] = $txt_dizi1;
+                    $txt_dizi_about[$i] = $txt_dizi2;
+
+            }
 
 ?>
 
@@ -231,30 +243,29 @@ $txt_dizi_about[$i] = $txt_dizi2;
             <div class="row">
 
 <?php
-$img_count = 3;    
-$img_dizi = array();
-$text_title_dizi =  array();
-$text_about_dizi = array();
+                $img_count = 3;    
+                $img_dizi = array();
+                $text_title_dizi =  array();
+                $text_about_dizi = array();
+            for ($i = 0; $i < $img_count; $i++) {
+                    $id=$i;
+                    $id2=$i;        
+                    $veriler_resim = resim('images', 'images_name', 'Bottom', 3, $id);
+                    $veriler_text_title = text_title('texts', 'text_title', 'Bottom1', 3, $id2);
+                    $veriler_text_about = text_title('texts', 'text_about', 'Bottom1', 3, $id2);
+                    $text_title_dizi[$i] = $veriler_text_title;
+                    $text_about_dizi[$i] = $veriler_text_about;        
+                    $img_dizi[$i] = $veriler_resim;     
+            }
 
-for ($i = 0; $i < $img_count; $i++) {
-$id=$i;
-$id2=$i;        
-$veriler_resim = resim('images', 'images_name', 'Bottom', 3, $id);
-$veriler_text_title = text_title('texts', 'text_title', 'Bottom1', 3, $id2);
-$veriler_text_about = text_title('texts', 'text_about', 'Bottom1', 3, $id2);
-$text_title_dizi[$i] = $veriler_text_title;
-$text_about_dizi[$i] = $veriler_text_about;        
-$img_dizi[$i] = $veriler_resim;     
-}
-
-for ($i = 0; $i < 3; $i++) {               
-echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-12' id='end-job-about-div1'>
-<img src='AdminLTE/pages/$img_dizi[$i]' class='img-fluid' id='end-job-img'>
-<p class='lorem-title'>$text_title_dizi[$i]</p>
-<p class='lorem-about'>$text_about_dizi[$i]</p>
-<input type='submit' value='Read More' id='end-job-input'>
-</div>";
-}
+            for ($i = 0; $i < 3; $i++) {               
+                echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-12' id='end-job-about-div1'>
+                <img src='AdminLTE/pages/$img_dizi[$i]' class='img-fluid' id='end-job-img'>
+                <p class='lorem-title'>$text_title_dizi[$i]</p>
+                <p class='lorem-about'>$text_about_dizi[$i]</p>
+                <input type='submit' value='Read More' id='end-job-input'>
+                </div>";
+            }
 
 ?>
 
@@ -267,16 +278,16 @@ echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-12' id='end-job-about-div1'>
                 <div class="col-12" id='our_satisfection'>
 <?php
 
-$txt_dizi_title = array();
-$txt_dizi_about = array();
+                $txt_dizi_title = array();
+                $txt_dizi_about = array();
 
-for ($i = 0; $i < 1; $i++) {                 
-$id2 = $i;
-$txt_dizi1 = text_title('texts', 'text_title', 'Bottom2', 1, $id2);
-$txt_dizi2 = text_title('texts', 'text_about', 'Bottom2', 1, $id2);
-$txt_dizi_title[$i] = $txt_dizi1;
-$txt_dizi_about[$i] = $txt_dizi2;
-}
+            for ($i = 0; $i < 1; $i++) {                 
+                    $id2 = $i;
+                    $txt_dizi1 = text_title('texts', 'text_title', 'Bottom2', 1, $id2);
+                    $txt_dizi2 = text_title('texts', 'text_about', 'Bottom2', 1, $id2);
+                    $txt_dizi_title[$i] = $txt_dizi1;
+                    $txt_dizi_about[$i] = $txt_dizi2;
+            }
 ?>
 
                         <p class='text-center satisfection_ptag1'>
@@ -318,17 +329,18 @@ $txt_dizi_about[$i] = $txt_dizi2;
                         <p class='follow_us'>Follow us on</p>
 <?php
 
-$conn = dbconnect();
-$sql7 = "SELECT * from `icons`";
-$result7 = mysqli_query($conn,$sql7);
-$row7 = mysqli_fetch_all($result7,MYSQLI_ASSOC);
-$rowcount7 = mysqli_num_rows($result7);
+                $conn = dbconnect();
+                $sql7 = "SELECT * from `icons`";
+                $result7 = mysqli_query($conn,$sql7);
+                $row7 = mysqli_fetch_all($result7,MYSQLI_ASSOC);
+                $rowcount7 = mysqli_num_rows($result7);
 
-for ($i = 0; $i < $rowcount7; $i++) {
-$icon_code = "fa ".$row7[$i]['icon_code'];
-$icon_link = $row7[$i]['icon_link'];
-echo "<a class='aLink' target='_blank' href='$icon_link'><i style='color:blue; font-size:40px; margin-left:4px; margin-top:20px;' id='icons' class='$icon_code'></i></a>";
-}
+            for ($i = 0;$i < $rowcount7; $i++) {
+                    $icon_code = "fa ".$row7[$i]['icon_code'];
+                    $icon_link = $row7[$i]['icon_link'];
+                    echo "<a class='aLink' target='_blank' href='$icon_link'><i style='color:blue; font-size:40px; margin-left:4px; margin-top:20px;' id='icons' class='$icon_code'></i></a>";
+
+            }
 
 ?>
 
@@ -370,7 +382,4 @@ echo "<a class='aLink' target='_blank' href='$icon_link'><i style='color:blue; f
 
     </body>
     </html>
-
-    
-
 

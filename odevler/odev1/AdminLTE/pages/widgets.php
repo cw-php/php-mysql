@@ -1,65 +1,63 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['oturum'])) { 
-  
+if (!isset($_SESSION['oturum'])) {
 
- header("Location:../login.php");
+    header("Location:../login.php");
 
 } else {
 
- $admin_username = $_SESSION['username'];
+ $admin_username=$_SESSION['username'];
 
 }
 
+function dbconnect()
+{
+    $sql = mysqli_connect("localhost", "root", "", "admin_panel");
+    if($sql)
+    {
 
-function dbconnect() {
+        return $sql;
 
-  $sql = mysqli_connect("localhost", "root", "", "admin_panel");
+    }else
+    {
 
-  if ($sql) {
-
-      return $sql;
-
-  } else {
-
-      return false;
-  }
-
+        return false;
+    }
 }
 
-$conn = dbconnect();
+$conn=dbconnect();
 
-$sql = "SELECT * FROM `users`";
-$result = mysqli_query($conn, $sql);
+$sql="SELECT * FROM `users`";
+$result=mysqli_query($conn, $sql);
 
-while ($cek = mysqli_fetch_array($result)) {
+while ($cek=mysqli_fetch_array($result)) {
 
-$dizi = ["id"=>$cek["id"],"K_adi" => $cek["K_adi"],];
+$dizi=["id"=>$cek["id"],"K_adi" => $cek["K_adi"],];
 }
 
 function resim_cek($id) {
-  $conn = dbconnect();
-  $sql = "SELECT `images_name` from `images` where `id` = '$id'";
-  $result = mysqli_query($conn, $sql);
-  while ($cek = mysqli_fetch_array($result)) {
+  $conn=dbconnect();
+  $sql="SELECT `images_name` from `images` where `id`='$id'";
+  $result=mysqli_query($conn, $sql);
+  while ($cek=mysqli_fetch_array($result)) {
 
       echo $cek['images_name'];
   }      
   }
 
-  $query_select = "SELECT * FROM `images`";
-$result_select = mysqli_query($conn,$query_select) or die(mysql_error());
+$query_select = "SELECT * FROM `images`";
+$result_select = mysqli_query($conn, $query_select) or die(mysql_error());
 $rows = array();
 while ($row = mysqli_fetch_array($result_select))
 
     $rows[] = $row['images_name'];  
 
 function resim_id_cek($ad) {
-  $conn = dbconnect();
-  $sql = "SELECT `id` from `images` where `images_name` = '$ad'";
-  $result = mysqli_query($conn, $sql);
-  while ($cek = mysqli_fetch_array($result)) {
+  $conn=dbconnect();
+  $sql="SELECT `id` from `images` where `images_name`='$ad'";
+  $result=mysqli_query($conn, $sql);
+  while ($cek=mysqli_fetch_array($result)) {
 
       echo $cek['id'];
   }      
@@ -67,16 +65,16 @@ function resim_id_cek($ad) {
 echo resim_id_cek("resimler/61793927.png");    
 
 //resim ekleme fonksiyonu 
-  function resim_ekle($id) {
-    $conn = dbconnect();
-    $img_extends = ['.png','.jpg','.jpeg','.gif'];
-    $max_boyut = 500000;
-    $resim_boyutu = $_FILES['dosya']['size'];
-    $resim_adi = $_FILES['dosya']['name'];
-    $uzanti = explode(".", $resim_adi);
-    $uzanti = ".".end($uzanti);
-    $names = rand(0,99999999).$uzanti;
-    $dosya_yolu = 'resimler/'.$names;
+  function resim_ekle($id){
+    $conn=dbconnect();
+    $img_extends=['.png','.jpg','.jpeg','.gif'];
+    $max_boyut=500000;
+    $resim_boyutu=$_FILES['dosya']['size'];
+    $resim_adi=$_FILES['dosya']['name'];
+    $uzanti=explode(".",$resim_adi);
+    $uzanti=".".end($uzanti);
+    $names=rand(0,99999999).$uzanti;
+    $dosya_yolu='resimler/'.$names;
     if ($resim_boyutu > $max_boyut) {
 
         echo "Resim boyutu buyuk";
@@ -86,13 +84,13 @@ echo resim_id_cek("resimler/61793927.png");
 
         if (is_uploaded_file($_FILES['dosya']['tmp_name'])) {
 
-            $move = move_uploaded_file($_FILES['dosya']['tmp_name'], $dosya_yolu);
+            $move=move_uploaded_file($_FILES['dosya']['tmp_name'], $dosya_yolu);
 
             if ($move) {
                 echo "<script>alert('dosya yuklendi')</script>" ;
 
-                $sql = "UPDATE images SET images_name = 'resimler/$names' Where id = $id";
-                $sorgu = mysqli_query($conn, $sql);               
+                $sql="UPDATE images SET images_name='resimler/$names' Where id=$id";
+                $sorgu=mysqli_query($conn,$sql);               
             }   
         } else {
 
@@ -104,8 +102,6 @@ echo resim_id_cek("resimler/61793927.png");
 }
 }    
 }
-
-
 
 ?>
 
@@ -338,80 +334,82 @@ echo resim_id_cek("resimler/61793927.png");
 
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
-        <header class="main-header">
-    <!-- Logo -->
-    <a href="index2.html" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>LT</span>
-      <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b>LTE</span>
-    </a>
-    <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top">
-      <!-- Sidebar toggle button-->
-      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-        <span class="sr-only">Toggle navigation</span>
-      </a>
+            <header class="main-header">
+                <!-- Logo -->
+                <a href="index2.html" class="logo">
+                    <!-- mini logo for sidebar mini 50x50 pixels -->
+                    <span class="logo-mini"><b>A</b>LT</span>
+                    <!-- logo for regular state and mobile devices -->
+                    <span class="logo-lg"><b>Admin</b>LTE</span>
+                </a>
+                <!-- Header Navbar: style can be found in header.less -->
+                <nav class="navbar navbar-static-top">
+                    <!-- Sidebar toggle button-->
+                    <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                        <span class="sr-only">Toggle navigation</span>
+                    </a>
 
-      <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">
+                    <div class="navbar-custom-menu">
+                        <ul class="nav navbar-nav">
 
-          <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="../dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs"><?php echo $admin_username;?></span>
-            </a>
-            <ul class="dropdown-menu">
-              <!-- User image -->
-              <li class="user-header">
-                <img src="../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                            <li class="dropdown user user-menu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <img src="../dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                                    <span class="hidden-xs"><?php echo $admin_username;?></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <!-- User image -->
+                                    <li class="user-header">
+                                        <img src="../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
-                <p>
-                <?php echo $admin_username;?>
-                 
-                </p>
-              </li>
-              <!-- Menu Body -->
-              <li class="user-body">
-                <div class="row">
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Followers</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Sales</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Friends</a>
-                  </div>
-                </div>
-                <!-- /.row -->
-              </li>
-              <!-- Menu Footer-->
-              <li class="user-footer">
-                <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
-                </div>
-                <div class="pull-right">
-                  <a href="?logout=exit" class="btn btn-default btn-flat">Sign out</a>
+                                        <p>
+                                            <?php echo $admin_username;?>
+
+                                        </p>
+                                    </li>
+                                    <!-- Menu Body -->
+                                    <li class="user-body">
+                                        <div class="row">
+                                            <div class="col-xs-4 text-center">
+                                                <a href="#">Followers</a>
+                                            </div>
+                                            <div class="col-xs-4 text-center">
+                                                <a href="#">Sales</a>
+                                            </div>
+                                            <div class="col-xs-4 text-center">
+                                                <a href="#">Friends</a>
+                                            </div>
+                                        </div>
+                                        <!-- /.row -->
+                                    </li>
+                                    <!-- Menu Footer-->
+                                    <li class="user-footer">
+                                        <div class="pull-left">
+                                            <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                        </div>
+                                        <div class="pull-right">
+                                            <a href="?logout=exit" class="btn btn-default btn-flat">Sign out</a>
 <?php
-if (isset($_GET['logout'])) {
-    $exit = $_GET['logout'];
-    if ($exit == 'exit') {
+
+  if (isset($_GET['logout'])) {
+    $exit=$_GET['logout'];
+    if ($exit=='exit') {
         session_destroy();
         header("Location:../../login.php");
     }
   }
+
 ?>
-                </div>
-              </li>
-            </ul>
-          </li>
-          <!-- Control Sidebar Toggle Button -->
-          
-        </ul>
-      </div>
-    </nav>
-  </header>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!-- Control Sidebar Toggle Button -->
+
+                        </ul>
+                    </div>
+                </nav>
+            </header>
             <!-- Left side column. contains the logo and sidebar -->
             <aside class="main-sidebar">
                 <!-- sidebar: style can be found in sidebar.less -->
@@ -422,20 +420,22 @@ if (isset($_GET['logout'])) {
                             <img src="../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                         </div>
                         <div class="pull-left info">
-                            <p> <?php echo $admin_username;?></p>
+                            <p>
+                                <?php echo $admin_username;?>
+                            </p>
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>
-    
+
                     <ul class="sidebar-menu" data-widget="tree">
                         <li class="header">MAIN NAVIGATION</li>
-                        
+
                         <li>
-          <a href="../index.php">
-            <i class="fa fa-dashboard"></i> <span>Home</span>
-      
-          </a>
-        </li>
+                            <a href="../index.php">
+                                <i class="fa fa-dashboard"></i> <span>Home</span>
+
+                            </a>
+                        </li>
 
                         <li class="active">
                             <a href="widgets.php">
@@ -455,8 +455,6 @@ if (isset($_GET['logout'])) {
                             </a>
                         </li>
 
-                        
-
                         <li>
                             <a href="mailbox.php">
                                 <i class="fa fa-file-text-o"></i> <span>Texts</span>
@@ -465,17 +463,17 @@ if (isset($_GET['logout'])) {
                         </li>
 
                         <li>
-          <a href="examples/profile.php">
-            <i class="fa fa-user"></i> <span>Profile</span>
-      
-          </a>
-        </li>
-        <li>
-          <a href="icons.php">
-          <i class="fa fa-archive"></i> <span>Icons</span>
-           
-          </a>
-        </li>
+                            <a href="examples/profile.php">
+                                <i class="fa fa-user"></i> <span>Profile</span>
+
+                            </a>
+                        </li>
+                        <li>
+                            <a href="icons.php">
+                                <i class="fa fa-archive"></i> <span>Icons</span>
+
+                            </a>
+                        </li>
 
                     </ul>
                 </section>
@@ -490,20 +488,23 @@ if (isset($_GET['logout'])) {
         Images
 
       </h1>
-      <a class='add-a' href='add_new_image.php'><button style='background-color:red;width:100px;border-radius:10px;height:50px;' class='add-new-btn'><p class='add-new-p'>Add New</p></button></a>
+                    <a class='add-a' href='add_new_image.php'>
+                        <button style='background-color:red;width:100px;border-radius:10px;height:50px;' class='add-new-btn'>
+                            <p class='add-new-p'>Add New</p>
+                        </button>
+                    </a>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
                         <li class="active">Widgets</li>
                     </ol>
                 </section>
 
-                
                 <section class="content">
 
                     <!--resimlerrrrrrrrrrrrrrrrrrrr-->
                     <div class="container-fluid">
                         <div class="row">
-                        
+
                             <div id="id01" class="modal">
 
                                 <div class="imgcontainer">
@@ -524,17 +525,17 @@ if (isset($_GET['logout'])) {
                                 </div>
 
                             </div>
-                            
+
                             <p class='x'></p>
-                            <?php
+<?php
 
 $conn=dbconnect();
 $query_select = "SELECT * FROM `images` order by `id`";
-$result=mysqli_query($conn,$query_select);
-$row=mysqli_fetch_all($result,MYSQLI_ASSOC);
+$result=mysqli_query($conn, $query_select);
+$row=mysqli_fetch_all($result, MYSQLI_ASSOC);
 $rowcount=mysqli_num_rows($result);
 
-for($i=0;$i<$rowcount;$i++){
+for ($i=0; $i < $rowcount; $i++) {
 $veriler=$row[$i]['images_name'];
 $db_id=$row[$i]['id'];
 echo "<div class='col-9'>
@@ -552,24 +553,15 @@ echo "<div class='col-9'>
 </div>";
 }
 
-
-
-                             ?>
-
-                                
-                                
+?>
 
                         </div>
                     </div>
 
-                    <!--resimler sonnnnnnnnnnn-->
-
                 </section>
-                <!-- /.content -->
-            </div>
-            <!-- /.content-wrapper -->
 
-            <!-- Control Sidebar -->
+            </div>
+
             <aside class="control-sidebar control-sidebar-dark">
                 <!-- Create the tabs -->
                 <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
@@ -780,57 +772,44 @@ echo "<div class='col-9'>
         <script src="../dist/js/demo.js"></script>
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         <script>
-function delete_img(id){
+            function delete_img(id) {
 
+                $.ajax({
 
-$.ajax({
+                    url: "delete.php",
+                    type: "post",
+                    data: {
+                        "id2": id
+                    },
+                    success: function(veri) {
 
-url:"delete.php",
-type:"post",
-data:{"id2":id},
-success:function(veri){
+                        $(".x").html(veri);
 
-$(".x").html(veri);
+                    }
+                })
+            }
 
+            function resmiGuncelle(resimId) {
+                $("#id01").show();
+                $('#forms').on("submit", function(e) { // Formdaki tüm verilere erişilir
+                    e.preventDefault(); // Sayfa değişmesini engeller
 
-}
-})
-}
+                    formdata = new FormData(this);
+                    formdata.append('id', resimId);
 
-
-function resmiGuncelle(resimId){
-$("#id01").show();
-$('#forms').on("submit", function(e) { // Formdaki tüm verilere erişilir
-                        e.preventDefault(); // Sayfa değişmesini engeller
-
-                        formdata = new FormData(this);
-                        formdata.append('id', resimId);
-
-                        // var cv=new FormData(this);
-                        $.ajax({ // Ajax Metodu
-                            url: 'islem.php',
-                            type: 'POST',
-                            data: formdata,
-                            contentType: false,
-                            processData: false,
-                            success: function(data) {
-                                $('.x').html(data);
-                            }
-                        });
+                    // var cv=new FormData(this);
+                    $.ajax({ // Ajax Metodu
+                        url: 'islem.php',
+                        type: 'POST',
+                        data: formdata,
+                        contentType: false,
+                        processData: false,
+                        success: function(data) {
+                            $('.x').html(data);
+                        }
                     });
-}
-
-
-
-
-
-
-
-
-
-
-
-
+                });
+            }
 
             var modal = document.getElementById('id01');
 
@@ -840,22 +819,8 @@ $('#forms').on("submit", function(e) { // Formdaki tüm verilere erişilir
                     modal.style.display = "none";
                 }
             }
-
-            $(document).ready(function() {
-
-
-               
-                
-
-                    
-
-                    
-                
-            });
-
-            
         </script>
 
     </body>
-
     </html>
+

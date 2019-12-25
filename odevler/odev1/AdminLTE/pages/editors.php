@@ -1,61 +1,61 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['oturum'])) { 
+if(!isset($_SESSION['oturum'])){
   
 
  header("Location:../login.php");
 
-} else {
+}else{
 
- $admin_username = $_SESSION['username'];
+ $admin_username=$_SESSION['username'];
 
 }
 
 
-function dbconnect() {
+function dbconnect(){
 
-  $sql = mysqli_connect("localhost", "root", "", "admin_panel");
-
-  if ($sql) {
-
-      return $sql;
-
-  } else {
-
-      return false;
+    $sql=mysqli_connect("localhost","root","","admin_panel");
+  
+    if($sql){
+  
+        return $sql;
+    }else{
+  
+        return false;
+    }
+  
   }
 
-}
-
+  
 $conn=dbconnect();
 
-function titles() {
-if (isset($_GET['id'])) {
-$id = $_GET['id'];
+function titles(){
+if(isset($_GET['id'])){
+$id=$_GET['id'];
 
-  $id = $_GET['id'];
+  $id=$_GET['id'];
 
-  $conn = dbconnect();
-  $sql = "SELECT `text_title` from `texts` Where `id` = '$id'";
-  $result = mysqli_query($conn, $sql);
-  while ($cek = mysqli_fetch_array($result)) {
+  $conn=dbconnect();
+  $sql="SELECT `text_title` from `texts` Where `id`='$id'";
+  $result=mysqli_query($conn,$sql);
+  while($cek=mysqli_fetch_array($result)){
     echo  $cek['text_title'];
   
   }
 }
 }
 
-function icerik() {
-  if (isset($_GET['id'])) {
+function icerik(){
+  if(isset($_GET['id'])){
     
     global $id;
-       $id = $_GET['id'];
+       $id=$_GET['id'];
     
-      $conn = dbconnect();
-      $sql = "SELECT `text_about` from `texts` Where `id` = '$id'";
-      $result = mysqli_query($conn, $sql);
-      while ($cek = mysqli_fetch_array($result)) {
+      $conn=dbconnect();
+      $sql="SELECT `text_about` from `texts` Where `id`='$id'";
+      $result=mysqli_query($conn,$sql);
+      while($cek=mysqli_fetch_array($result)){
         echo  $cek['text_about'];
       
       }
@@ -185,15 +185,25 @@ function icerik() {
                 </div>
                 <div class="pull-right">
                   <a href="?logout=exit" class="btn btn-default btn-flat">Sign out</a>
- <?php
-if (isset($_GET['logout'])) {
-    $exit = $_GET['logout'];
-    if ($exit == 'exit') {
-        session_destroy();
-        header("Location:../../login.php");
-    }
-  }
-?>
+                  <?php
+                  
+                  
+                  if(isset($_GET['logout'])){
+
+                    $exit=$_GET['logout'];
+                    if($exit=='exit'){
+
+                        session_destroy();
+                        header("Location:../../login.php");
+
+                    }
+
+
+
+                  }
+                  
+                  
+                  ?>
                 </div>
               </li>
             </ul>
@@ -333,22 +343,22 @@ if (isset($_GET['logout'])) {
 
           <?php
           
-          if (isset($_POST['title'])) {
+          if(isset($_POST['title'])){
             $conn=dbconnect();
 
-            $title = $_POST['title'];
-            $editor_text = $_POST['editor1'];
-            $id = $_GET['id'];
-            $id = htmlspecialchars($id, ENT_QUOTES);
-            $id = mysqli_real_escape_string($conn, $id);
+            $title=$_POST['title'];
+            $editor_text=$_POST['editor1'];
+            $id=$_GET['id'];
+            $id=htmlspecialchars($id,ENT_QUOTES);
+            $id=mysqli_real_escape_string($conn,$id);
             
 
-             $conn = dbconnect();
-             $sql = "UPDATE `texts` set `text_title`='$title' , `text_about` = '$editor_text' Where `id` = $id";
-             $result = mysqli_query($conn, $sql);
-                   if ($result) {
+             $conn=dbconnect();
+             $sql="UPDATE `texts` set `text_title`='$title' , `text_about` = '$editor_text' Where `id`=$id";
+             $result=mysqli_query($conn,$sql);
+                   if($result){
                          echo "<script>alert('Bilgiler eklendi')</script>";
-                   } else {
+                   }else{
                          echo "bir problem oldu";
                       }
                 }
@@ -586,6 +596,16 @@ if (isset($_GET['logout'])) {
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script>
 
+$(document).ready(function(){
+
+
+
+
+
+
+
+
+})
 
 
 
@@ -606,6 +626,4 @@ if (isset($_GET['logout'])) {
 </script>
 </body>
 </html>
-
-
 

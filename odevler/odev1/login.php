@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 ?>
 
 <!DOCTYPE html>
@@ -78,87 +79,102 @@ body{
         </form> 
 <?php
        
-function dbconnect() {
- $sql=mysqli_connect("localhost", "root", "", "admin_panel");
- if ($sql) {
- 
-     return $sql;
-
- } else {
- 
-     return false;
- }
- }
- $conn=dbconnect();
- global $conn;
-
-
-if (isset($_POST['username']) || isset($_POST['parola'])) {
-
-$username=htmlspecialchars($_POST['username'], ENT_QUOTES);
-$parola=htmlspecialchars($_POST['parola'], ENT_QUOTES);
+       function dbconnect(){
+        $sql=mysqli_connect("localhost","root","","admin_panel");
+        if($sql){
+        
+            return $sql;
+        }else{
+        
+            return false;
+        }
+        }
+        $conn=dbconnect();
+        global $conn;
 
 
-if (empty($username) || empty($parola)) {
+if (isset($_POST['username']) || isset($_POST['parola'])){
+
+$username=htmlspecialchars($_POST['username'],ENT_QUOTES);
+$parola=htmlspecialchars($_POST['parola'],ENT_QUOTES);
+
+
+if (empty($username) || empty($parola)){
 
     echo "Username ve ya Parola boş olamaz";
 
-} else {
+}else{
 
-$username = mysqli_real_escape_string($conn, $_POST['username']);
-$parola = mysqli_real_escape_string($conn, $_POST['parola']);
+$username = mysqli_real_escape_string($conn,$_POST['username']);
+$parola = mysqli_real_escape_string($conn,$_POST['parola']);
 
 
 
-    $sql = "SELECT * FROM `users` where `k_adi` = '$username'";
-    $conn = dbconnect();
+    $sql="SELECT * FROM `users` where `k_adi`='$username'";
+    $conn=dbconnect();
     
-    $result = mysqli_query($conn, $sql);
-    $count = mysqli_num_rows($result);
+    $result=mysqli_query($conn,$sql);
+    $count=mysqli_num_rows($result);
 
-if ($count > 0) {
+    if($count>0){
 
-$sql2 = "SELECT `password` from `users` where `k_adi` = '$username'";
-$result2 = mysqli_query($conn, $sql2);
-while ($cek = mysqli_fetch_array($result2)) {
+        $sql2="SELECT `password` from `users` where `k_adi`='$username'";
+        $result2=mysqli_query($conn,$sql2);
+        while($cek=mysqli_fetch_array($result2)){
 
-$db_password = $cek['password'];
+                $db_password=$cek['password'];
                 
                 
 
-}
+        }
         
         
-if (password_verify($parola, $db_password)) {
+            if(password_verify($parola,$db_password)){
 
-    $rutbe_sql = "SELECT `rutbe` from `users` Where `k_adi` = '$username'";
-    $rutbe_result = mysqli_query($conn, $rutbe_sql);
-    while ($rutbe_cek = mysqli_fetch_array($rutbe_result)) { 
+                $rutbe_sql="SELECT `rutbe` from `users` Where `k_adi`='$username'";
+                $rutbe_result=mysqli_query($conn,$rutbe_sql);
+                while($rutbe_cek=mysqli_fetch_array($rutbe_result)){
 
-        $rutbe = $rutbe_cek['rutbe'];
-        
-}
+                    $rutbe= $rutbe_cek['rutbe'];
+                    
+                    
+    
+            }
 
-$_SESSION['oturum'] = true;
-$_SESSION['username'] = $username;
-$_SESSION['rutbe'] = $rutbe;
-header("Location:AdminLTE/index.php"); 
+                    $_SESSION['oturum']=true;
+                    $_SESSION['username']=$username;
+                    $_SESSION['rutbe'] = $rutbe;
+                    header("Location:AdminLTE/index.php"); 
                     
                     
 
-} else {
+            }else{
 
-echo "Hatalı Username ve ya Parola";
-}
+            echo "Hatalı Username ve ya Parola";
+            }
 
-}
 
-}
 
-} else {
+    }
+
+
+    }
+
+    }else{
 
         echo "Username ve ya Parola yanlış";
-}
+    }
+
+
+
+
+
+
+
+
+
+
+
 ?>
         </div>
    

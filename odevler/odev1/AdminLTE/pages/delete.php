@@ -1,13 +1,12 @@
 <?php
-function dbconnect() {
+function dbconnect(){
 
-    $sql = mysqli_connect("localhost", "root", "", "admin_panel");
+    $sql=mysqli_connect("localhost","root","","admin_panel");
   
-    if ($sql) {
+    if($sql){
   
         return $sql;
-  
-    } else {
+    }else{
   
         return false;
     }
@@ -17,16 +16,16 @@ function dbconnect() {
   $conn=dbconnect();
 
 
-if (isset($_POST['id'])) {
+if(isset($_POST['id'])){
 
-$id = $_POST['id'];
-$sql="DELETE  from `texts` where `id` = '$id'";
-$result=mysqli_query($conn, $sql);
-if ($result) {
+$id=$_POST['id'];
+$sql="DELETE  from `texts` where `id`='$id'";
+$result=mysqli_query($conn,$sql);
+if($result){
 
 
     echo "<script>alert('Ugurlu')</script>";
-} else {
+}else{
 
     echo "<script>alert('Eror')</script>";
 }
@@ -40,16 +39,16 @@ if ($result) {
 
 
 
-if (isset($_POST['id2'])) {
+if(isset($_POST['id2'])){
 
-    $id = $_POST['id2'];
-    $sql = "DELETE  from `images` where `id` = '$id'";
-    $result = mysqli_query($conn, $sql);
-    if ($result) {
+    $id=$_POST['id2'];
+    $sql="DELETE  from `images` where `id`='$id'";
+    $result=mysqli_query($conn,$sql);
+    if($result){
     
     
         echo "<script>alert('Ugurlu')</script>";
-    } else {
+    }else{
     
         echo "<script>alert('Eror')</script>";
     }
@@ -61,16 +60,16 @@ if (isset($_POST['id2'])) {
     }
 
 
-    if (isset($_POST['icon_id'])) {
+    if(isset($_POST['icon_id'])){
 
-$icon_id = $_POST['icon_id'];
-$sql = "DELETE  from `icons` where `id` = '$icon_id'";
-    $result = mysqli_query($conn, $sql);
-    if ($result) {
+$icon_id=$_POST['icon_id'];
+$sql="DELETE  from `icons` where `id`='$icon_id'";
+    $result=mysqli_query($conn,$sql);
+    if($result){
     
     
         echo "<script>alert('Ugurlu')</script>";
-    } else {
+    }else{
     
         echo "<script>alert('Eror')</script>";
     }
