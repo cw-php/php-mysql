@@ -113,24 +113,16 @@ if(!isset($_SESSION['oturum'])){
                 <div class="pull-right">
                   <a href="?logout=exit" class="btn btn-default btn-flat">Sign out</a>
                   <?php
-                  
-                  
-                  if(isset($_GET['logout'])){
 
-                    $exit=$_GET['logout'];
-                    if($exit=='exit'){
+if (isset($_GET['logout'])) {
+  $exit=$_GET['logout'];
+  if ($exit=='exit') {
+      session_destroy();
+      header("Location:../login.php");
+  }
+}
 
-                        session_destroy();
-                        header("Location:../login.php");
-
-                    }
-
-
-
-                  }
-                  
-                  
-                  ?>
+?>
                 </div>
               </li>
             </ul>
